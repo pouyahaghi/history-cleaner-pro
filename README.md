@@ -1,10 +1,13 @@
 History Cleaner Pro - Chrome Extension
+
 A powerful, all-in-one Chrome extension for complete browsing privacy and data management
 
 🚀 Overview
+
 History Cleaner Pro is a comprehensive privacy tool for Chrome that gives you complete control over your browsing data. Whether you want to delete specific website history, clear cache automatically, or schedule regular cleanups - this extension has you covered!
 
 ✨ Features
+
 🎯 Targeted History Cleaning
 URL-based cleaning: Remove history for specific websites
 Keyword search: Delete all history containing specific keywords
