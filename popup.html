@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        width: 400px;
+        padding: 20px;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      h2 {
+        margin: 0 0 15px 0;
+        color: #333;
+        font-size: 18px;
+        text-align: center;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .quick-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .quick-btn {
+        padding: 10px;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        transition: all 0.2s;
+      }
+
+      .quick-btn:hover {
+        background: #e9ecef;
+        transform: translateY(-1px);
+      }
+
+      .quick-btn.primary {
+        background: #4a90e2;
+        color: white;
+        border-color: #357ae8;
+      }
+
+      .quick-btn.primary:hover {
+        background: #357ae8;
+      }
+
+      .quick-btn.danger {
+        background: #dc3545;
+        color: white;
+        border-color: #c82333;
+      }
+
+      .quick-btn.danger:hover {
+        background: #c82333;
+      }
+
+      .tab-buttons {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 5px;
+      }
+
+      .tab-button {
+        flex: 1;
+        padding: 8px 5px;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        cursor: pointer;
+        font-size: 13px;
+        color: #6c757d;
+      }
+
+      .tab-button:hover {
+        color: #ffffff;
+      }
+
+      .tab-button.active {
+        color: #4a90e2;
+        border-bottom-color: #4a90e2;
+        font-weight: 600;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .section {
+        margin-bottom: 15px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 6px;
+      }
+
+      .section-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #495057;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      textarea {
+        height: 80px;
+        resize: vertical;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0px 10px 0px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: background 0.2s;
+      }
+
+      button:hover {
+        background: #357ae8;
+      }
+
+      button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+
+      .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 10px 0;
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+      }
+
+      .checkbox-item input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+      }
+
+      .status-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        background: #e7f3ff;
+        border: 1px solid #b3d7ff;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-top: 10px;
+      }
+
+      .status-on {
+        color: #28a745;
+        font-weight: 600;
+      }
+
+      .status-off {
+        color: #dc3545;
+        font-weight: 600;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #4a90e2;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 10px auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .result {
+        margin-top: 15px;
+        padding: 12px;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 14px;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 15px;
+        font-size: 12px;
+      }
+
+      .stat-item {
+        padding: 8px;
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 16px;
+        font-weight: bold;
+        color: #4a90e2;
+      }
+
+      .stat-label {
+        color: #6c757d;
+        margin-top: 2px;
+      }
+
+      .icon {
+        width: 16px;
+        height: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>History Cleaner Pro</h2>
+        <button
+          id="settingsBtn"
+          style="width: auto; padding: 5px 10px; background: #6c757d"
+        >
+          Settings
+        </button>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <button class="quick-btn primary" id="quickClearBtn">
+           Quick Clear
+        </button>
+        <button class="quick-btn danger" id="fullClearBtn">
+           Full Clean
+        </button>
+      </div>
+
+      <div class="tab-buttons">
+        <button class="tab-button active" data-tab="targeted">Targeted</button>
+        <button class="tab-button" data-tab="scheduled">Scheduled</button>
+        <button class="tab-button" data-tab="advanced">Advanced</button>
+      </div>
+
+      <!-- Targeted Cleaning Tab -->
+      <div class="tab-content active" id="targeted-tab">
+        <div class="section">
+          <div class="section-title">Clear by URL</div>
+          <input type="text" id="urlInput" placeholder="https://example.com" />
+          <button id="clearUrlBtn">Clear History for URL</button>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Clear by Keyword</div>
+          <input
+            type="text"
+            id="keywordInput"
+            placeholder="facebook, google, etc."
+          />
+          <button id="clearKeywordBtn">Clear History for Keyword</button>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Clear Multiple URLs</div>
+          <textarea
+            id="bulkUrlsInput"
+            placeholder="Enter URLs (one per line)"
+          ></textarea>
+          <button id="clearBulkBtn">Clear All Listed URLs</button>
+        </div>
+      </div>
+
+      <!-- Scheduled Cleaning Tab -->
+      <div class="tab-content" id="scheduled-tab">
+        <div class="section">
+          <div class="section-title">Automatic Cleaning Schedule</div>
+
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="scheduleEnabled" />
+              <label for="scheduleEnabled">Enable automatic cleaning</label>
+            </div>
+          </div>
+
+          <div id="scheduleSettings">
+            <label>Interval:</label>
+            <select id="intervalSelect">
+              <option value="15">Every 15 minutes</option>
+              <option value="30">Every 30 minutes</option>
+              <option value="60" selected>Every hour</option>
+              <option value="180">Every 3 hours</option>
+              <option value="360">Every 6 hours</option>
+              <option value="720">Every 12 hours</option>
+              <option value="1440">Every day</option>
+              <option value="10080">Every week</option>
+            </select>
+
+            <label>Clean what?</label>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="scheduleHistory" checked />
+                <label for="scheduleHistory">Browsing history</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="scheduleCache" />
+                <label for="scheduleCache">Cache and cookies</label>
+              </div>
+            </div>
+
+            <button id="saveScheduleBtn">Save Schedule</button>
+          </div>
+
+          <div
+            id="scheduleStatus"
+            class="status-indicator"
+            style="display: none"
+          >
+            <span>Next cleaning:</span>
+            <span id="nextCleanTime" class="status-on"></span>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Browser Startup Cleaning</div>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="startupEnabled" />
+              <label for="startupEnabled">Clean on browser startup</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="startupHistory" checked />
+              <label for="startupHistory">Clear browsing history</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="startupCache" />
+              <label for="startupCache">Clear cache and cookies</label>
+            </div>
+          </div>
+          <button id="saveStartupBtn">Save Startup Settings</button>
+        </div>
+      </div>
+
+      <!-- Advanced Tab -->
+      <div class="tab-content" id="advanced-tab">
+        <div class="section">
+          <div class="section-title">Clear Cache & Cookies</div>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="cacheBrowsing" checked />
+              <label for="cacheBrowsing">Browsing history</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="cacheCache" />
+              <label for="cacheCache">Cached images and files</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="cacheCookies" />
+              <label for="cacheCookies">Cookies and site data</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="cacheLocalStorage" />
+              <label for="cacheLocalStorage">Local storage</label>
+            </div>
+          </div>
+          <button id="clearCacheBtn" class="danger">Clear Selected Data</button>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Statistics</div>
+          <div class="stats">
+            <div class="stat-item">
+              <div class="stat-value" id="historyCount">0</div>
+              <div class="stat-label">History Items</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="lastCleaned">Never</div>
+              <div class="stat-label">Last Cleaned</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Quick Actions</div>
+          <button id="clearTodayBtn">Clear Today's History</button>
+          <button id="clearLastHourBtn">Clear Last Hour</button>
+          <button id="clearAllHistoryBtn" class="danger">
+             Clear All History
+          </button>
+        </div>
+      </div>
+
+      <div id="result" class="result"></div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

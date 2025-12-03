@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "History Cleaner Pro",
+  "version": "2.0",
+  "description": "Advanced history cleaning with cache deletion, scheduling, and one-click cleaning",
+  "permissions": [
+    "history",
+    "storage",
+    "browsingData",
+    "alarms"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "options_page": "options.html"
+}
